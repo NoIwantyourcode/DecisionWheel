@@ -4,7 +4,7 @@ const btn = document.getElementById('addBtn')
 
 const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple' ]
 const textColors = ['white', 'white', 'black', 'white', 'white', 'white']
-const options = ['Option A', 'Option B', 'Option C', 'Option D'];
+const options = [];
 const sliceAngle = (2 * Math.PI)/options.length;
 
 let rotation = 0;
@@ -12,6 +12,7 @@ let velocity = 0;
 
 function drawWheel(rotation) {
     ctx.clearRect(0, 0, 340, 340);
+    const sliceAngle = (2 * Math.PI)/options.length;
     options.forEach((option, i) => {
         const start = rotation + i * sliceAngle;
         const end = start + sliceAngle;
@@ -40,8 +41,10 @@ function animate() {
     rotation += velocity;
     drawWheel(rotation);
 
-    if (velocity > 0.0001) {
+    if (velocity > 0.001) {
         requestAnimationFrame(animate);
+    } else {
+        showResult();
     }
 }
 
@@ -49,3 +52,38 @@ canvas.addEventListener('click', () => {
     velocity = 0.3;
     animate();
 });
+
+btn.addEventListener('click', () => {
+    const value = document.getElementById('optionInput').value;
+    options.push(value)
+    drawWheel(0)
+    renderList()
+})
+
+function renderList() {
+    const list = document.getElementById('optionsList');
+    list.innerHTML = '';
+
+    options.forEach((option, i) => {
+        const item = document.createElement('li');
+        item.textContent = option;
+        list.appendChild(item);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Remove';
+        deleteBtn.addEventListener('click', () => {
+            options.splice(i, 1);
+            drawWheel(rotation);
+            renderList();
+        });
+
+        item.appendChild(deleteBtn);
+    });
+}
+
+function showResult() {
+    const sliceAngle = (2 * Math.PI)/options.length;
+    const normalized = (2 * Math.PI) - (rotation % (2 * Math.PI));
+    const index = Math.floor(normalized/sliceAngle) % options.length;
+    document.getElementById('result').textContent = 'Winner: '+ options[index];
+}
