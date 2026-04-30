@@ -4,7 +4,7 @@ const btn = document.getElementById('addBtn')
 
 const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple' ]
 const textColors = ['white', 'white', 'black', 'white', 'white', 'white']
-const options = [];
+const options = ['Option A', 'Option B'];
 const sliceAngle = (2 * Math.PI)/options.length;
 
 let rotation = 0;
@@ -87,3 +87,9 @@ function showResult() {
     const index = Math.floor(normalized/sliceAngle) % options.length;
     document.getElementById('result').textContent = 'Winner: '+ options[index];
 }
+
+document.querySelectorAll(".themeBtn").forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.body.setAttribute('data-theme', btn.getAttribute('data-theme'));
+    });
+});

@@ -1,3 +1,44 @@
-body {
-    text-align: center;
+:root {
+    --bg: #ffffff;
+    --text: #111111;
+    --accent: #333333;
 }
+
+[data-theme='dark'] {
+    --bg: #0e0e10;
+    --text: #f0f0f0;
+    --accent: #f5c843;
+}
+
+[data-theme='playful'] {
+    --bg: #fff5f0;
+    --text: #222222;
+    --accent: #222222;
+}
+
+[data-theme='retro'] {
+    --bg: #2b1d0e;
+    --text: #f5c842;
+    --accent: #e05a4e;
+}
+
+[data-theme='neon'] {
+    --bg: #0a0a0a;
+    --text: #00ff99;
+    --accent: #ff00ff;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+
+
+.input {
+    border: solid;
+    border-color: #0080ff;
+    width: 200px;
+    height: 400px
+}
+
