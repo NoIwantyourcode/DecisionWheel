@@ -98,3 +98,19 @@ button {
 #optionInput {
     margin-right: 0.5rem;
 }
+
+dialog {
+    background: var(--bg);
+    color: var(--text);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+dialog::backdrop {
+    background: blur(100px);
+}
+
+.intro {
+    text-align: center
+}
