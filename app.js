@@ -1,12 +1,14 @@
 const canvas = document.getElementById('wheel');
 const ctx = canvas.getContext('2d');
 const btn = document.getElementById('addBtn')
+const saved = localStorage.getItem('options')
 
 const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple' ]
 const textColors = ['white', 'white', 'black', 'white', 'white', 'white']
-const options = ['Option A', 'Option B'];
+const options = saved ? JSON.parse(saved) : ['Option A', 'Option B', 'Option C', 'Option D']
 const sliceAngle = (2 * Math.PI)/options.length;
 
+let history = []
 let rotation = 0;
 let velocity = 0;
 
@@ -55,10 +57,13 @@ canvas.addEventListener('click', () => {
 });
 
 btn.addEventListener('click', () => {
-    const value = document.getElementById('optionInput').value;
-    options.push(value)
+    const value = document.getElementById('optionInput').value; console.log('please do not enter duplicate or empty options.')
+    if (value.trim() === '') return;
+    if (options.includes(value)) return; document.getElementById('optionInput').value = ''; console.log("Please do not enter duplicate or empty options.");
+    options.push(value);
     drawWheel(0)
     renderList()
+    saveOptions();
 })
 
 function renderList() {
@@ -87,6 +92,11 @@ function showResult() {
     const normalized = (2 * Math.PI) - (rotation % (2 * Math.PI));
     const index = Math.floor(normalized/sliceAngle) % options.length;
     document.getElementById('result').textContent = 'Winner: '+ options[index];
+    history.unshift(options[index]);
+    if (history.length > 5) history.pop();
+    renderHistory();
+    const popup = document.getElementById('winnerPopup');
+    document.getElementById('winnerText').textContent = 'Winner: ' + option[index]
 }
 
 document.querySelectorAll(".themeBtn").forEach(btn => {
@@ -94,3 +104,18 @@ document.querySelectorAll(".themeBtn").forEach(btn => {
         document.body.setAttribute('data-theme', btn.getAttribute('data-theme'));
     });
 });
+
+function saveOptions() {
+    localStorage.setItem('options', JSON.stringify(options));
+}
+
+function renderHistory() {
+    const list = document.getElementById('history');
+    list.innerHTML = '';
+
+    history.forEach(winner => {
+        const item = document.createElement('li');
+        item.textContent = winner;
+        list.appendChild(item);
+    });
+}
