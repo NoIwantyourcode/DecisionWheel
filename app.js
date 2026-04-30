@@ -34,6 +34,13 @@ function drawWheel(rotation) {
         ctx.restore();
         ctx.textAlign = 'center';
     })
+    ctx.beginPath();
+    ctx.moveTo(325, 170);
+    ctx.lineTo(370, 145);
+    ctx.lineTo(370, 195);
+    ctx.closePath();
+    ctx.fillStyle = 'black';
+    ctx.fill(); 
 };
 
 drawWheel(0)
