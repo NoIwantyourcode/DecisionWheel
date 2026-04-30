@@ -35,6 +35,7 @@ function drawWheel(rotation) {
 };
 
 drawWheel(0)
+renderList()
 
 function animate() {
     velocity *= 0.98;
