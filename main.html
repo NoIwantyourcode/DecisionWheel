@@ -10,6 +10,12 @@
             <button id="removeWinnerBtn">Remove from wheel</button>
             <button id="closePopupBtn">Close</button>
         </dialog>
+
+        <dialog id="errorPopup">
+            <p id="errorText"></p>
+            <button id="closeErrorBtn">ok</button>
+        </dialog>
+
         <div>
             <button class="themeBtn" data-theme="dark">Dark</button>
             <button class="themeBtn" data-theme="Playful">Playful</button>
@@ -17,14 +23,19 @@
             <button class="themeBtn" data-theme="retro">Retro</button>
             <button class="themeBtn" data-theme="neon">Neon</button>
         </div>
+
         <canvas width="340" height="340" id="wheel">
         </canvas>
 
         <input type="text" id="optionInput" placeholder="Option A, Option B..." class="input">
         <button id="addBtn">Add</button>
+
         <ul id="optionsList"></ul>
+
         <ul id="history"></ul>
+
         <p id="result"></p>
+
         <script src="app.js"></script>
     </body>
 </html>

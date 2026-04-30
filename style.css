@@ -10,10 +10,16 @@
     --accent: #f5c843;
 }
 
-[data-theme='playful'] {
-    --bg: #fff5f0;
+[data-theme='minimal'] {
+    --bg: #f5f5f5;
     --text: #222222;
     --accent: #222222;
+}
+
+[data-theme='playful'] {
+    --bg: #fff5f0;
+    --text: #333333;
+    --accent: #ff6b6b;
 }
 
 [data-theme='retro'] {

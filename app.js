@@ -57,9 +57,18 @@ canvas.addEventListener('click', () => {
 });
 
 btn.addEventListener('click', () => {
-    const value = document.getElementById('optionInput').value; console.log('please do not enter duplicate or empty options.')
-    if (value.trim() === '') return;
-    if (options.includes(value)) return; document.getElementById('optionInput').value = ''; console.log("Please do not enter duplicate or empty options.");
+    const value = document.getElementById('optionInput').value; 
+    if (value.trim() === '') {
+        showError('Please enter an option.')
+        return;
+    };
+
+    if (options.includes(value)) {  
+        document.getElementById('optionInput').value = ''; 
+        showError('That option already exists.');
+        return;
+    }
+
     options.push(value);
     drawWheel(0)
     renderList()
@@ -96,7 +105,8 @@ function showResult() {
     if (history.length > 5) history.pop();
     renderHistory();
     const popup = document.getElementById('winnerPopup');
-    document.getElementById('winnerText').textContent = 'Winner: ' + option[index]
+    document.getElementById('winnerText').textContent = 'Winner: ' + options[index];
+    popup.showModal();
 }
 
 document.querySelectorAll(".themeBtn").forEach(btn => {
@@ -117,5 +127,28 @@ function renderHistory() {
         const item = document.createElement('li');
         item.textContent = winner;
         list.appendChild(item);
+    });
+}
+
+document.getElementById('closePopupBtn').addEventListener('click', () => {
+        document.getElementById('winnerPopup').close();
+});
+
+document.getElementById('removeWinnerBtn').addEventListener('click', () => {
+    const winnerText = document.getElementById('winnerText').textContent.replace('Winner: ', '');
+    const index = options.indexOf(winnerText);
+    if (index !== -1) {
+        options.splice(index, 1);
+        drawWheel(rotation);
+        renderList();
+    }
+    document.getElementById('winnerPopup').close();
+})
+
+function showError(message) {
+    document.getElementById('errorText').textContent = message;
+    document.getElementById('errorPopup').showModal();
+    document.getElementById('closeErrorBtn').addEventListener('click', () => {
+        document.getElementById('errorPopup').close();
     });
 }
